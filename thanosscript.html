@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THANOS</title>
+    <style>
+        /* ==================== تنسيقات عامة ==================== */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #2fa124 0%, #000000 100%);
+            min-height: 100vh;
+            color: white;
+            text-align: center;
+        }
+
+        /* 🟢 تنسيق THANOS لصفحة الدخول 🟢 */
+        .header-text-login {
+            font-size: 50px;
+            font-weight: bold;
+            color: #00ffa1;
+            margin-bottom: 30px; 
+            text-shadow: 0 0 10px rgba(32, 195, 36, 0.8);
+        }
+        
+        /* 🟢 تنسيق THANOS لصفحة الأرقام (داخل البطاقة) 🟢 */
+        .header-text-main {
+            font-size: 50px;
+            font-weight: bold;
+            color: #00ffa1;
+            /* 🌟 تقليل الهامش لرفع الدائرة 🌟 */
+            margin-bottom: 5px; 
+            text-shadow: 0 0 10px rgba(32, 195, 36, 0.8);
+        }
+
+        /* ==================== تنسيقات صفحة الإدخال (LOGIN) ==================== */
+        #login-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(to bottom, #2fa124 0%, #000000 100%);
+        }
+
+        .login-box {
+            background: rgba(23, 195, 36, 0.1);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 254, 3, 0.4);
+            max-width: 350px;
+            margin-top: 20px;
+        }
+
+        #code-input { padding: 10px; font-size: 18px; border: 2px solid #00ffa1; border-radius: 5px; background-color: #000000; color: #00ffa1; width: 80%; margin-bottom: 20px; text-align: center; }
+        #enter-button { padding: 10px 30px; font-size: 18px; font-weight: bold; cursor: pointer; border: none; border-radius: 5px; color: black; background-color: #00ffa1; transition: background-color 0.3s; }
+        #enter-button:hover { background-color: #55C457; }
+        #message { color: #ff0000; margin-top: 15px; font-weight: bold; }
+        
+        /* ==================== تنسيقات صفحة الأرقام (MAIN) ==================== */
+
+        #main-page {
+            display: block; 
+            width: 100%;
+            min-height: 100vh;
+            padding-top: 5vh;
+        }
+        
+        /* تنسيق البطاقة/المحتوى */
+        .card {
+            width: 300px;
+            height: 500px;
+            background: linear-gradient(to bottom, #17c324, #000000);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgb(0, 254, 3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 35px; 
+            margin-bottom: 0; 
+            position: relative; 
+            margin: 0 auto; 
+        }
+
+        /* تنسيق الدائرة */
+        .circle {
+            width: 150px;
+            height: 150px;
+            background-color: #28a42a;
+            border-radius: 143%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px 5px rgba(41, 174, 44, 0.6);
+            margin-top: 0; 
+        }
+
+        #number-display { font-size: 40px; font-weight: bolder; color: #ffffff; display: block; }
+        #start-action-button { padding: 10px 20px; font-size: 24px; font-weight: bolder; cursor: pointer; border: none; border-radius: 50%; color: white; background-color: transparent; height: 100%; width: 100%; transition: background-color 0.1s; }
+        #start-action-button:active { background-color: rgba(0, 0, 0, 0.2); }
+
+        /* 🟢 تنسيق زر Nixt (الآن هو مطلق طبيعي داخل البطاقة) 🟢 */
+        #nixt-button {
+            /* ❌ إزالة position: fixed/absolute ❌ */
+            /* 🌟 تعويض التموضع بـ margin-top 🌟 */
+            margin-top: 25px; 
+            
+            padding: 10px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px; 
+            color: white; 
+            background-color: #38A83A;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s;
+            
+            /* ضمان الإخفاء التام في البداية */
+            display: none;
+            visibility: hidden;
+            opacity: 0;
+        }
+        
+        #nixt-button:hover {
+            background-color: #55C457;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="login-page">
+        <div class="header-text-login">THANOS</div> 
+        <div class="login-box">
+            <p>الرجاء إدخال كود الدخول:</p>
+            <input type="password" id="code-input" placeholder="XXXX" maxlength="4">
+            <button id="enter-button">دخول</button>
+            <div id="message"></div>
+        </div>
+    </div>
+
+    <div id="main-page">
+        <div class="card">
+            <div class="header-text-main">THANOS</div>
+            <div class="circle" id="interactive-circle">
+                <button id="start-action-button">Start</button>
+                <span id="number-display" style="display:none;"></span>
+            </div>
+            <button id="nixt-button">Nixt</button>
+        </div>
+    </div>
+    
+    <script>
+        const loginPage = document.getElementById('login-page');
+        const mainPage = document.getElementById('main-page');
+        const startButton = document.getElementById('start-action-button');
+        const nixtButton = document.getElementById('nixt-button');
+        const numberDisplay = document.getElementById('number-display');
+
+        const sequence = ['30.51', '1.30', '1.23', '6.73', '1.59', '1.25', '1.18', '1.49', '2.05', '3.89'];
+        let currentStep = 0;
+        const correctCode = '5555';
+
+        function checkCode() {
+            const input = document.getElementById('code-input').value;
+            const message = document.getElementById('message');
+            
+            if (input === correctCode) {
+                message.textContent = '✅ كود صحيح! جاري الدخول...';
+                message.style.color = '#00ffa1';
+                setTimeout(() => {
+                    loginPage.style.display = 'none';
+                    mainPage.style.display = 'block'; 
+                }, 1000); 
+            } else {
+                message.textContent = '❌ كود خاطئ. حاول مرة أخرى.';
+                message.style.color = '#ff0000';
+            }
+        }
+
+        document.getElementById('enter-button').addEventListener('click', checkCode);
+        document.getElementById('code-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkCode();
+            }
+        });
+
+        function startSequence() {
+            startButton.style.display = 'none';
+            
+            // 🌟 إظهار الزر والرقم 🌟
+            nixtButton.style.display = 'block';
+            nixtButton.style.visibility = 'visible';
+            nixtButton.style.opacity = '1';
+
+            numberDisplay.style.display = 'block';
+            
+            currentStep = 0;
+            numberDisplay.textContent = sequence[currentStep];
+        }
+        
+        function nextStep() {
+            currentStep++;
+            if (currentStep < sequence.length) {
+                numberDisplay.textContent = sequence[currentStep];
+            } else {
+                numberDisplay.textContent = '';
+                // إخفاء الزر عند النهاية
+                nixtButton.style.display = 'none';
+                nixtButton.style.visibility = 'hidden';
+                nixtButton.style.opacity = '0';
+                
+                setTimeout(() => {
+                    numberDisplay.style.display = 'none';
+                    startButton.style.display = 'block';
+                }, 1500);
+            }
+        }
+
+        startButton.addEventListener('click', startSequence);
+        nixtButton.addEventListener('click', nextStep);
+    </script>
+
+</body>
+</html>
