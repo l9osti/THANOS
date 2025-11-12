@@ -138,7 +138,7 @@
         <div class="header-text-login">THANOS</div> 
         <div class="login-box">
             <p>الرجاء إدخال كود الدخول:</p>
-            <input type="password" id="code-input" placeholder="XXXX" maxlength="4">
+            <input type="password" id="code-input" placeholder="XXXX" maxlength="8">
             <button id="enter-button">دخول</button>
             <div id="message"></div>
         </div>
@@ -162,9 +162,9 @@
         const nixtButton = document.getElementById('nixt-button');
         const numberDisplay = document.getElementById('number-display');
 
-        const sequence = ['30.51', '1.30', '1.23', '6.73', '1.59', '1.25', '1.18', '1.49', '2.05', '3.89'];
+        const sequence = ['1.95', '1.01', '2.79', '6.30', '1.11', '1.75', '2.66', '1.11', '1.00', '3.43', '1.20', '2.10', '10.85', '26.19', '8.58', '5.23', '2.00', '2.12', '2.22', '1.63', '1.03'];
         let currentStep = 0;
-        const correctCode = '5555';
+        const correctCode = '34153658';
 
         function checkCode() {
             const input = document.getElementById('code-input').value;
